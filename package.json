@@ -23,6 +23,7 @@
     "gulp": "^3.9.1",
     "gulp-inject": "^4.2.0",
     "gulp-nodemon": "^2.2.1",
+    "gulp-order": "^1.1.1",
     "main-bower-files": "^2.13.1"
   },
   "dependencies": {}

@@ -16,13 +16,19 @@ var gulp = require('gulp');
 var inject = require('gulp-inject');
 var nodemon = require('gulp-nodemon');
 var mainBowerFiles = require('main-bower-files');
+var order = require("gulp-order");
 
 gulp.task('inject', function () {
   var target = gulp.src('./client/src/index.html');
 
   var sources = gulp.src(['./client/src/js/**/*.js', './client/src/css/**/*.css'], {read: false});
 
-  var bowerJSSources = gulp.src('./client/src/bower/**/*.js', {read: false});
+  var bowerJSSources = gulp.src('./client/src/bower/**/*.js', {read: false})
+          .pipe(order([
+          "jquery/**/*.js", 
+          "angular/**/*.js", 
+          "**/*.js" 
+          ]));
   var bowerCSSSources = gulp.src('./client/src/bower/**/*.css', {read: false});
  
   return target
@@ -44,5 +50,5 @@ gulp.task('nodemon', function () {
 
 gulp.task('main-bower-files', function() {
     return gulp.src(mainBowerFiles(), { base: './bower_components' })
-        .pipe(gulp.dest('./client/src/bower'))
+      .pipe(gulp.dest('./client/src/bower'))
 });

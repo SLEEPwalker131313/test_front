@@ -19,6 +19,24 @@
     "test",
     "tests"
   ],
+  "overrides": {
+    "bootstrap": {
+      "main": [
+          "./dist/js/bootstrap.min.js",
+          "./dist/css/bootstrap.min.css"
+          ]
+    },
+    "angular": {
+      "main": [
+          "./angular.min.js"
+          ]
+    },
+    "jquery": {
+      "main": [
+          "./dist/jquery.min.js"
+          ]
+    }
+  },
   "dependencies": {
     "angular": "^1.6.4",
     "bootstrap": "^3.3.7"
