@@ -1,0 +1,22 @@
+{
+  "name": "test_front",
+  "description": "Test project to learn basic language features",
+  "main": "server.js",
+  "authors": [
+    "Sergey Sukhanov"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "js",
+    "learn",
+    "fls"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
