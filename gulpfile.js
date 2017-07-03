@@ -17,19 +17,24 @@ var inject = require('gulp-inject');
 var nodemon = require('gulp-nodemon');
 var mainBowerFiles = require('main-bower-files');
 
-gulp.task('gulp-inject', function () {
+gulp.task('inject', function () {
   var target = gulp.src('./client/src/index.html');
 
   var sources = gulp.src(['./client/src/js/**/*.js', './client/src/css/**/*.css'], {read: false});
-  var bowerSources = gulp.src(['./client/src/bower/**/*.js', './client/src/bower/**/*.css']);
+
+  var bowerJSSources = gulp.src('./client/src/bower/**/*.js', {read: false});
+  var bowerCSSSources = gulp.src('./client/src/bower/**/*.css', {read: false});
  
   return target
-    .pipe(inject(sources, {ignorePath: '/client/src/', addRootSlash: false}))
-    .pipe(inject(bowerSources, {ignorePath: '/client/src', addRootSlash: false}))
+    .pipe(inject(sources, {ignorePath: '/client/src', addRootSlash: false, name: 'inject'}))
+
+    .pipe(inject(bowerJSSources, {ignorePath: '/client/src', addRootSlash: false, name: 'bower'}))
+    .pipe(inject(bowerCSSSources, {ignorePath: '/client/src', addRootSlash: false, name: 'bower'}))
+
     .pipe(gulp.dest('./client/src'));
 });
 
-gulp.task('gulp-nodemon', function () {
+gulp.task('nodemon', function () {
   nodemon({
     script: 'server.js',
     ext: 'js html',
