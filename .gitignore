@@ -1,0 +1,9 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+.idea/*
+bower_components
+node_modules
+tmp
+dist.*
+*.iml
+*.DS_Store
