@@ -10,3 +10,34 @@
 *
 *
 * */
+
+
+var gulp = require('gulp');
+var inject = require('gulp-inject');
+var nodemon = require('gulp-nodemon');
+var mainBowerFiles = require('main-bower-files');
+
+gulp.task('gulp-inject', function () {
+  var target = gulp.src('./client/src/index.html');
+
+  var sources = gulp.src(['./client/src/js/**/*.js', './client/src/css/**/*.css'], {read: false});
+  var bowerSources = gulp.src(['./client/src/bower/**/*.js', './client/src/bower/**/*.css']);
+ 
+  return target
+    .pipe(inject(sources, {ignorePath: '/client/src/', addRootSlash: false}))
+    .pipe(inject(bowerSources, {ignorePath: '/client/src', addRootSlash: false}))
+    .pipe(gulp.dest('./client/src'));
+});
+
+gulp.task('gulp-nodemon', function () {
+  nodemon({
+    script: 'server.js',
+    ext: 'js html',
+    env: { 'NODE_ENV': 'development' }
+  })
+});
+
+gulp.task('main-bower-files', function() {
+    return gulp.src(mainBowerFiles(), { base: './bower_components' })
+        .pipe(gulp.dest('./client/src/bower'))
+});

@@ -17,5 +17,13 @@
   ],
   "author": "Sergey Sukhanov",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/SergeySukhanov/test_front#readme"
+  "homepage": "https://bitbucket.org/SergeySukhanov/test_front#readme",
+  "devDependencies": {
+    "express": "^4.15.3",
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.2.0",
+    "gulp-nodemon": "^2.2.1",
+    "main-bower-files": "^2.13.1"
+  },
+  "dependencies": {}
 }
