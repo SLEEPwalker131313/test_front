@@ -15,23 +15,28 @@
 var gulp = require('gulp');
 var inject = require('gulp-inject');
 var nodemon = require('gulp-nodemon');
-var mainBowerFiles = require('main-bower-files');
+var bower = require('main-bower-files');
 var order = require("gulp-order");
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var gulpFilter = require('gulp-filter');
+var cleanCss = require('gulp-clean-css');
+var sourcemaps = require('gulp-sourcemaps');
+var babel = require('gulp-babel');
+var sass = require('gulp-sass');
 
 var root = './client/src/';
 
 var sources = {
   js: root + 'js/**/*.js',
-  css: root + 'css/**/*.css'
+  css: root + 'css/**/*.css',
+  scss: root + 'scss/*.scss'
 };
 
 var output = {
-  root: './output/',
-  dev: '/dev/',
-  prod: '/prod/'
+  root: './client/dist/',
+  dev: 'dev/',
+  prod: 'prod/'
 }
 
 var bowerSourcesRoot = output.root + 'bower_sources';
@@ -51,7 +56,7 @@ gulp.task('nodemon', function () {
 });
 
 gulp.task('main-bower-files', function() {
-    return gulp.src(mainBowerFiles(), { base: './bower_components' })
+    return gulp.src(bower(), { base: './bower_components' })
       .pipe(gulp.dest(bowerSourcesRoot))
 });
 
@@ -59,16 +64,22 @@ gulp.task('main-bower-files', function() {
 gulp.task('dev-makebowerfiles', function() {
   var bowerOutput = output.root + output.dev + 'bower_sources';
 
-  return gulp.src(mainBowerFiles(), { base: './bower_components' })
+  return gulp.src(bower(), { base: './bower_components' })
     .pipe(gulp.dest(bowerOutput));
 });
 
 gulp.task('dev-makesrcfiles', function() {
-  return gulp.src(root + '/**/*')
+  return gulp.src([root + '/**/*.js', root + '/**/*.css'])
     .pipe(gulp.dest(output.root + output.dev));
 });
 
-gulp.task('dev-makefiles', ['dev-makebowerfiles', 'dev-makesrcfiles']);
+gulp.task('dev-sass', function() {
+  return gulp.src(sources.scss)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest(output.root + output.dev + '/css'));
+});
+
+gulp.task('dev-makefiles', ['dev-makebowerfiles', 'dev-makesrcfiles', 'dev-sass']);
 
 gulp.task('dev', ['dev-makefiles'], function() {
   var bowerOutput = output.root + output.dev + 'bower_sources';
@@ -93,7 +104,7 @@ gulp.task('dev', ['dev-makefiles'], function() {
 
 
 gulp.task('prod-makevendorjs', function() {
-  var bowerFiles = gulp.src(mainBowerFiles(), { base: './bower_components' });
+  var bowerFiles = gulp.src(bower(), { base: './bower_components' });
 
   return bowerFiles
     .pipe(gulpFilter('**/*.js', { restore: true }))
@@ -103,7 +114,7 @@ gulp.task('prod-makevendorjs', function() {
 });
 
 gulp.task('prod-makevendorcss', function() {
-  var bowerFiles = gulp.src(mainBowerFiles(), { base: './bower_components' });
+  var bowerFiles = gulp.src(bower(), { base: './bower_components' });
 
   return bowerFiles
     .pipe(gulpFilter('**/*.css', { restore: true }))
@@ -113,14 +124,25 @@ gulp.task('prod-makevendorcss', function() {
 
 gulp.task('prod-makeappjs', function() {
   return gulp.src(sources.js)
+    .pipe(sourcemaps.init())
+    .pipe(babel({ presets:['es2015'] }))
     .pipe(concat('app.js'))
     .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(output.root + output.prod + 'js'));
 });
 
+//gulp.task('prod-sass', function() {
+//  return gulp.src(sources.css, sources.scss)
+//    .pipe(sass().on('error', sass.logError))
+//    .pipe(gulp.dest(output.root + output.prod + '/css'));
+//});
+
 gulp.task('prod-makeappcss', function() {
-  return gulp.src(sources.css)
+  return gulp.src([sources.css, sources.scss])
+    .pipe(sass().on('error', sass.logError))
     .pipe(concat('app.css'))
+    .pipe(cleanCss())
     .pipe(gulp.dest(output.root + output.prod + 'css'));
 });
 

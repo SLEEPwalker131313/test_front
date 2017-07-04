@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="core" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="core" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="core" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="core" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>Test app</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="client/dist/dev/bower_sources/bootstrap/dist/css/bootstrap.min.css">
+    <!-- endinject -->
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/site.css">
+    <!-- endinject -->
+</head>
+<body>
+  <div id="ui-view" class="wrapper" ui-view></div>
+
+  <!-- bower:js -->
+  <script src="client/dist/dev/bower_sources/jquery/dist/jquery.min.js"></script>
+  <script src="client/dist/dev/bower_sources/angular/angular.min.js"></script>
+  <script src="client/dist/dev/bower_sources/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="client/dist/dev/bower_sources/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- endinject -->
+
+  <!-- inject:js -->
+  <script src="js/app.module.js"></script>
+  <script src="js/app.routes.js"></script>
+  <script src="js/app.run.js"></script>
+  <script src="js/services/api.service.js"></script>
+  <script src="js/components/account/account.component.js"></script>
+  <script src="js/components/account/account.module.js"></script>
+  <script src="js/components/layout/layout.component.js"></script>
+  <!-- endinject -->
+
+</body>
+</html>
