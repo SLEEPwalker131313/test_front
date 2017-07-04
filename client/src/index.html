@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]>
+<html lang="en" ng-app="core" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="core" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="core" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="core" class="no-js"> <!--<![endif]-->
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <title>Test app</title>
-
-    <!-- inject:css -->
-    <!-- endinject -->
-
     <!-- bower:css -->
     <!-- endinject -->
 
-    <!-- inject:js -->
-    <!-- endinject -->
-
-    <!-- bower:js -->
+    <!-- inject:css -->
     <!-- endinject -->
 </head>
 <body>
+  <div id="ui-view" class="wrapper" ui-view></div>
 
- <script>
-   var app = new APP.Run('testapp').init();
- </script>
+  <!-- bower:js -->
+  <!-- endinject -->
+
+  <!-- inject:js -->
+  <!-- endinject -->
 
 </body>
 </html>
