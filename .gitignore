@@ -6,3 +6,5 @@ dist.*
 *.iml
 *.DS_Store
 client/src/bower/
+output/
+package-lock.json
