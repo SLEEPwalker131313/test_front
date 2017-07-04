@@ -25,26 +25,29 @@ var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
 var sass = require('gulp-sass');
 
-var root = './client/src/';
+var root = './client/';
+
+var src = root + 'src/';
 
 var sources = {
-  js: root + 'js/**/*.js',
-  css: root + 'css/**/*.css',
-  scss: root + 'scss/*.scss'
+  js: src + 'js/**/*.js',
+  css: src + 'css/**/*.css',
+  scss: src + 'scss/*.scss'
 };
 
+var dist = root + 'dist/';
+
 var output = {
-  root: './client/dist/',
-  dev: 'dev/',
-  prod: 'prod/'
+  dev: dist + 'dev/',
+  prod: dist + 'prod/'
 }
 
-var bowerSourcesRoot = output.root + 'bower_sources';
+//var bowerSourcesRoot = output.root + 'bower_sources';
 
-var bowerSources = {
-  js: bowerSourcesRoot + '/**/*.js',
-  css: bowerSourcesRoot + '/**/*.css'
-}
+//var bowerSources = {
+//  js: bowerSourcesRoot + '/**/*.js',
+//  css: bowerSourcesRoot + '/**/*.css'
+//}
 
 
 gulp.task('nodemon', function () {
@@ -55,38 +58,40 @@ gulp.task('nodemon', function () {
   })
 });
 
-gulp.task('main-bower-files', function() {
-    return gulp.src(bower(), { base: './bower_components' })
-      .pipe(gulp.dest(bowerSourcesRoot))
-});
+//gulp.task('main-bower-files', function() {
+//    return gulp.src(bower(), { base: './bower_components' })
+//      .pipe(gulp.dest(bowerSourcesRoot))
+//});
 
 
 gulp.task('dev-makebowerfiles', function() {
-  var bowerOutput = output.root + output.dev + 'bower_sources';
+  var bowerOutput = output.dev + 'bower_sources';
 
   return gulp.src(bower(), { base: './bower_components' })
     .pipe(gulp.dest(bowerOutput));
 });
 
-gulp.task('dev-makesrcfiles', function() {
-  return gulp.src([root + '/**/*.js', root + '/**/*.css'])
-    .pipe(gulp.dest(output.root + output.dev));
+gulp.task('dev-makejsfiles', function() {
+  return gulp.src(sources.js)
+    .pipe(gulp.dest(output.dev + 'js/'));
 });
 
-gulp.task('dev-sass', function() {
-  return gulp.src(sources.scss)
+gulp.task('dev-makecssfiles', function() {
+  return gulp.src([sources.css, sources.scss])
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest(output.root + output.dev + '/css'));
+    .pipe(gulp.dest(output.dev + 'css/'));
 });
 
-gulp.task('dev-makefiles', ['dev-makebowerfiles', 'dev-makesrcfiles', 'dev-sass']);
+gulp.task('dev-makesrcfiles', ['dev-makejsfiles', 'dev-makecssfiles']);
+
+gulp.task('dev-makefiles', ['dev-makebowerfiles', 'dev-makesrcfiles']);
 
 gulp.task('dev', ['dev-makefiles'], function() {
-  var bowerOutput = output.root + output.dev + 'bower_sources';
+  var bowerOutput = output.dev + 'bower_sources';
 
-  var target = gulp.src(root + 'index.html');
+  var target = gulp.src(src + 'index.html');
 
-  var source = gulp.src([sources.js, sources.css], {read: false});
+  var source = gulp.src([output.dev + '/js/**/*.js', output.dev + '/css/**/*.css'], {read: false});
 
   var bowerJSSources = gulp.src(bowerOutput + '/**/*.js', {read: false})
     .pipe(order(["jquery/**/*.js", "angular/**/*.js", "**/*.js"]));
@@ -94,12 +99,12 @@ gulp.task('dev', ['dev-makefiles'], function() {
   var bowerCSSSources = gulp.src(bowerOutput + '/**/*.css', {read: false});
  
   return target
-    .pipe(inject(source, {ignorePath: 'client/src', addRootSlash: false, name: 'inject'}))
+    .pipe(inject(source, {ignorePath: '/client/dist/dev', addRootSlash: false, name: 'inject'}))
 
-    .pipe(inject(bowerJSSources, {ignorePath: '/output/dev', addRootSlash: false, name: 'bower'}))
-    .pipe(inject(bowerCSSSources, {ignorePath: '/output/dev', addRootSlash: false, name: 'bower'}))
+    .pipe(inject(bowerJSSources, {ignorePath: '/client/dist/dev', addRootSlash: false, name: 'bower'}))
+    .pipe(inject(bowerCSSSources, {ignorePath: '/client/dist/dev', addRootSlash: false, name: 'bower'}))
 
-    .pipe(gulp.dest(output.root + output.dev));
+    .pipe(gulp.dest(output.dev));
 });
 
 
@@ -110,7 +115,7 @@ gulp.task('prod-makevendorjs', function() {
     .pipe(gulpFilter('**/*.js', { restore: true }))
     .pipe(order(["jquery/**/*.js", "angular/**/*.js", "**/*.js"]))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(output.root + output.prod + 'js'));
+    .pipe(gulp.dest(output.prod + 'js'));
 });
 
 gulp.task('prod-makevendorcss', function() {
@@ -119,7 +124,7 @@ gulp.task('prod-makevendorcss', function() {
   return bowerFiles
     .pipe(gulpFilter('**/*.css', { restore: true }))
     .pipe(concat('vendor.css'))
-    .pipe(gulp.dest(output.root + output.prod + 'css'));
+    .pipe(gulp.dest(output.prod + 'css'));
 });
 
 gulp.task('prod-makeappjs', function() {
@@ -129,33 +134,27 @@ gulp.task('prod-makeappjs', function() {
     .pipe(concat('app.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(output.root + output.prod + 'js'));
+    .pipe(gulp.dest(output.prod + 'js'));
 });
-
-//gulp.task('prod-sass', function() {
-//  return gulp.src(sources.css, sources.scss)
-//    .pipe(sass().on('error', sass.logError))
-//    .pipe(gulp.dest(output.root + output.prod + '/css'));
-//});
 
 gulp.task('prod-makeappcss', function() {
   return gulp.src([sources.css, sources.scss])
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('app.css'))
     .pipe(cleanCss())
-    .pipe(gulp.dest(output.root + output.prod + 'css'));
+    .pipe(gulp.dest(output.prod + 'css'));
 });
 
 gulp.task('prod-makefiles', ['prod-makevendorjs', 'prod-makevendorcss', 'prod-makeappjs', 'prod-makeappcss']);
 
 gulp.task('prod', ['prod-makefiles'], function() {
-  var JSFiles = gulp.src(output.root + output.prod + 'js/**/*.js', {read: false});
-  var CSSFiles = gulp.src(output.root + output.prod + 'css/**/*.css', {read: false});
+  var JSFiles = gulp.src(output.prod + 'js/**/*.js', {read: false});
+  var CSSFiles = gulp.src(output.prod + 'css/**/*.css', {read: false});
 
-  var target = gulp.src(root + 'index.html');
+  var target = gulp.src(src + 'index.html');
 
   return target
-    .pipe(inject(JSFiles, {ignorePath: '/output/prod', addRootSlash: false}))
-    .pipe(inject(CSSFiles, {ignorePath: '/output/prod', addRootSlash: false}))
-    .pipe(gulp.dest(output.root + output.prod));
+    .pipe(inject(JSFiles, {ignorePath: 'client/dist/prod', addRootSlash: false}))
+    .pipe(inject(CSSFiles, {ignorePath: 'client/dist/prod', addRootSlash: false}))
+    .pipe(gulp.dest(output.prod));
 });
