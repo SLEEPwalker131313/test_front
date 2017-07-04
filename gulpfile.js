@@ -82,11 +82,9 @@ gulp.task('dev-makecssfiles', function() {
     .pipe(gulp.dest(output.dev + 'css/'));
 });
 
-gulp.task('dev-makesrcfiles', ['dev-makejsfiles', 'dev-makecssfiles']);
+gulp.task('dev-makefiles', ['dev-makebowerfiles', 'dev-makejsfiles', 'dev-makecssfiles']);
 
-gulp.task('dev-makefiles', ['dev-makebowerfiles', 'dev-makesrcfiles']);
-
-gulp.task('dev', ['dev-makefiles'], function() {
+gulp.task('build-dev', ['dev-makefiles'], function() {
   var bowerOutput = output.dev + 'bower_sources';
 
   var target = gulp.src(src + 'index.html');
@@ -130,7 +128,7 @@ gulp.task('prod-makevendorcss', function() {
 gulp.task('prod-makeappjs', function() {
   return gulp.src(sources.js)
     .pipe(sourcemaps.init())
-    .pipe(babel({ presets:['es2015'] }))
+    .pipe(babel({ presets: ['es2015'] }))
     .pipe(concat('app.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
@@ -145,9 +143,7 @@ gulp.task('prod-makeappcss', function() {
     .pipe(gulp.dest(output.prod + 'css'));
 });
 
-gulp.task('prod-makefiles', ['prod-makevendorjs', 'prod-makevendorcss', 'prod-makeappjs', 'prod-makeappcss']);
-
-gulp.task('prod', ['prod-makefiles'], function() {
+gulp.task('build-prod', ['prod-makevendorjs', 'prod-makevendorcss', 'prod-makeappjs', 'prod-makeappcss'], function() {
   var JSFiles = gulp.src(output.prod + 'js/**/*.js', {read: false});
   var CSSFiles = gulp.src(output.prod + 'css/**/*.css', {read: false});
 
