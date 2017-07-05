@@ -14,22 +14,20 @@
         $stateProvider
 
             .state('home', {
+                //abstract: true,
                 url: '/home',
-                template: '<div>Layout</div>'
+                views: {
+                     '@': {
+                         template: '<app-layout></app-layout>'
+                     }
+                }
+             })
 
-
-        // $stateProvider.state('app', {
-        //     abstract: true,
-        //     views: {
-        //         '@': {
-        //             template: '<app-layout></app-layout>'
-        //         }
-        //     }
-        
-             }).state('app.auth', {
+            .state('app.auth', {
                  abstract: true
-        
-             }).state('app.non_auth', {
+             })
+
+            .state('app.non_auth', {
                  abstract: true
              });
     });

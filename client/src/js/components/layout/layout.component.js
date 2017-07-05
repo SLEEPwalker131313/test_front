@@ -3,10 +3,11 @@
  */
 ;(function(angular){
   'use strict';
-  angular.module('core')
+  angular
+      .module('core')
       .component('appLayout', {
         template:'<div>Layout</div>',
-        controller(){
+        controller() {
           const $ctrl = this;
 
           Object.assign($ctrl, {
