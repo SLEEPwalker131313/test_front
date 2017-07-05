@@ -52,7 +52,8 @@ var output = {
 
 gulp.task('nodemon', function () {
   nodemon({
-    script: 'server.js',
+    //script: 'server.js',
+    server: output.prod + 'index.html',
     ext: 'js html',
     env: { 'NODE_ENV': 'development' }
   })
@@ -156,3 +157,11 @@ gulp.task('build-prod', ['prod-makevendorjs', 'prod-makevendorcss', 'prod-makeap
     .pipe(inject(CSSFiles, {ignorePath: 'client/dist/prod', addRootSlash: false}))
     .pipe(gulp.dest(output.prod));
 });
+
+gulp.task('run-prod', ['build-prod'], function() {
+  nodemon({
+    script: 'server.js',
+    ext: 'js html',
+    env: { 'NODE_ENV': 'development' }
+  })
+})
