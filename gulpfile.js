@@ -128,6 +128,7 @@ gulp.task('prod-makevendorcss', function() {
 
 gulp.task('prod-makeappjs', function() {
   return gulp.src(sources.js)
+    .pipe(order(["/*.js", "**/*.js"]))
     .pipe(sourcemaps.init())
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(concat('app.js'))
