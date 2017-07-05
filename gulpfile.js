@@ -133,7 +133,7 @@ gulp.task('prod-makeappjs', function() {
     .pipe(sourcemaps.init())
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(concat('app.js'))
-    .pipe(ngAnnotate())
+    .pipe(ngAnnotate()) //Required to support minification for Angular
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(output.prod + 'js'));
