@@ -24,6 +24,7 @@ var cleanCss = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
 var sass = require('gulp-sass');
+var ngAnnotate = require('gulp-ng-annotate')
 
 var root = './client/';
 
@@ -132,6 +133,7 @@ gulp.task('prod-makeappjs', function() {
     .pipe(sourcemaps.init())
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(concat('app.js'))
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(output.prod + 'js'));
