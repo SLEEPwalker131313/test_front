@@ -144,8 +144,10 @@ gulp.task('prod-makeappcss', function() {
 });
 
 gulp.task('build-prod', ['prod-makevendorjs', 'prod-makevendorcss', 'prod-makeappjs', 'prod-makeappcss'], function() {
-  var JSFiles = gulp.src(output.prod + 'js/**/*.js', {read: false});
-  var CSSFiles = gulp.src(output.prod + 'css/**/*.css', {read: false});
+  var JSFiles = gulp.src(output.prod + 'js/*.js', {read: false})
+    .pipe(order(["vendor.js", "app.js", "*.js"]));
+  var CSSFiles = gulp.src(output.prod + 'css/*.css', {read: false})
+    .pipe(order(["vendor.css", "app.css", "*.css"]));
 
   var target = gulp.src(src + 'index.html');
 
