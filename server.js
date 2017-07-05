@@ -5,7 +5,7 @@
 var express = require('express');
 var app = express();
 
-app.use(express.static(__dirname + '/client/dist/dev'));
+app.use(express.static(__dirname + '/client/dist/prod'));
 
 app.get('/', function (req, res) {
   res.send(null);
