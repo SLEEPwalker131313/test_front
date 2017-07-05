@@ -16,7 +16,6 @@
             .state('home', {
                 url: '/home',
                 template: '<div>Layout</div>'
-            });
 
 
         // $stateProvider.state('app', {
@@ -26,12 +25,12 @@
         //             template: '<app-layout></app-layout>'
         //         }
         //     }
-        //
-        // }).state('app.auth', {
-        //     abstract: true
-        //
-        // }).state('app.non_auth', {
-        //     abstract: true
-        // });
+        
+             }).state('app.auth', {
+                 abstract: true
+        
+             }).state('app.non_auth', {
+                 abstract: true
+             });
     });
 })(angular);
