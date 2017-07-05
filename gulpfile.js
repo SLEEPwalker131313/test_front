@@ -539,3 +539,11 @@ gulp.task('start-prod', ['build-prod'], function () {
 // default task builds for prod
 gulp.task('default', ['clean-build-app-prod']);
 
+gulp.task('dev-env', function() {
+  return process.env.NODE_ENV = 'development';
+});
+
+gulp.task('prod-env', function() {
+  return process.env.NODE_ENV = 'production';
+});
+
