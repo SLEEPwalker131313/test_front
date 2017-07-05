@@ -1,0 +1,8 @@
+TRANSLATES:
+  GAME:
+    EN:
+      COMMON:
+        MESSAGE: 'Message'
+      BUTTONS:
+        EN: 'English'
+        RU: 'Russian'
