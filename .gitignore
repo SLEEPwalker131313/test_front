@@ -1,8 +1,6 @@
-.idea/*
-bower_components
-node_modules
+/bower_components
+/node_modules
 tmp
-client/dist
-*.iml
-*.DS_Store
 package-lock.json
+/client/dist/
+**/.idea
