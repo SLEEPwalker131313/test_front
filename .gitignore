@@ -5,3 +5,5 @@ tmp
 dist.*
 *.iml
 *.DS_Store
+package-lock.json
+**/.idea
