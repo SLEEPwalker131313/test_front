@@ -13,6 +13,7 @@ var concat = require('gulp-concat');
 var merge = require('gulp-merge-json');
 var insert = require('gulp-insert');
 var ngConstant = require('gulp-ng-constant');
+var cleanCSS = require('gulp-clean-css');
 
 // == PATH STRINGS ========
 
@@ -125,7 +126,7 @@ pipes.builtVendorScriptsProd = function () {
 pipes.builtVendorCssProd = function() {
   return gulp.src(bowerFiles('**/*.css'))
       .pipe(plugins.concat('vendor.min.css'))
-      .pipe(plugins.minifyCss())
+      .pipe(cleanCSS())
       .pipe(gulp.dest(paths.distProd + '/styles'));
 };
 
@@ -141,7 +142,7 @@ pipes.builtStylesProd = function () {
       .pipe(plugins.plumber()) // add from dev
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass())
-      .pipe(plugins.minifyCss())
+      .pipe(cleanCSS())
       .pipe(plugins.sourcemaps.write())
       .pipe(gulp.dest(paths.distProd));
 };
@@ -281,29 +282,32 @@ pipes.builtAppProd = function () {
 // == TASKS ========
 
 gulp.task('clean-tmp', function () {
-  var deferred = Q.defer();
-  del(paths.tmp, function () {
-    deferred.resolve();
-  });
-  return deferred.promise;
+  //var deferred = Q.defer();
+  //del(paths.tmp, function () {
+  //  deferred.resolve();
+  //});
+  //return deferred.promise;
+  return del.sync(paths.tmp);
 });
 
 // removes all compiled dev files
 gulp.task('clean-dev', function () {
-  var deferred = Q.defer();
-  del(paths.distDev, function () {
-    deferred.resolve();
-  });
-  return deferred.promise;
+  //var deferred = Q.defer();
+  //del(paths.distDev, function () {
+  //  deferred.resolve();
+  //});
+  //return deferred.promise;
+  return del.sync(paths.distDev);
 });
 
 // removes all compiled production files
 gulp.task('clean-prod', function () {
-  var deferred = Q.defer();
-  del(paths.distProd, function () {
-    deferred.resolve();
-  });
-  return deferred.promise;
+  //var deferred = Q.defer();
+  //del(paths.distProd, function () {
+  //  deferred.resolve();
+  //});
+  //return deferred.promise;
+  return del.sync(paths.distProd);
 });
 
 // checks html source files for syntax errors
