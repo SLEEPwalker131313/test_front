@@ -1,25 +1,105 @@
 <div class="row">
     <div class="col-sm-8">
-
-    </div>
-    <div class="col-sm-4">
-        <div class="event-participants">
-            <div class="participant-item" ng-repeat="item in $ctrl.data">
-                <div class="row">
-                    <div class="col-sm-3 avatar">
-                        <img src="/images/{{item.avatar}}"/>
+        <div class="row">
+            <div class="col-sm-12 hack-item">
+                <div class="banner_hack">
+                    <div class="short-actions">
+                        <h3>FLS Хакатон</h3>
+                        <a href="javascript:void(0)"><i class="fa fa-users" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
                     </div>
-                    <div class="col-sm-9 info">
-                        <p class="name">{{item.name}}</p>
-                        <p class="lang"><span>{{item.lang}}</span></p>
-                        <div class="actions">
-                            <a href="javascript:void(0)"><i class="fa fa-info" aria-hidden="true"></i></a>
-                            <a href="javascript:void(0)"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
-                            <a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i></a>
-                        </div>
+                    <div class="banner_hack-inner">
+                        <img src="/images/back_hack.jpg"/>
+                    </div>
+                </div>
+                <div class="info_hack row">
+                    <div class="col-sm-6">
+                        <h4>В чем профит:</h4>
+                        <ul>
+                            <li>Реализуй идею</li>
+                            <li>Получи опыт</li>
+                            <li>Расширь круг знакомств</li>
+                            <li>Проведи выходные с пользой</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Места:</h4>
+                        <ul>
+                            <li>
+                                <span class="title">1 место:</span>
+                                <span class="value">-</span>
+                            </li>
+                            <li>
+                                <span class="title">2 место:</span>
+                                <span class="value">-</span>
+                            </li>
+                            <li>
+                                <span class="title">3 место:</span>
+                                <span class="value">-</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="line-posts">
+                    <div class="post-item">
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="event-projects">
+            <h4>Проекты</h4>
+            <div class="project_item">
+                <ul>
+                    <li>
+                        <h5>Название проекта</h5>
+                        <div class="participant-item" ng-repeat="item in $ctrl.data">
+                            <div class="row">
+                                <div class="col-sm-3 avatar">
+                                    <img src="/images/{{item.avatar}}"/>
+                                </div>
+                                <div class="col-sm-9 info">
+                                    <p class="name">{{item.name}}</p>
+                                    <p class="lang"><span>{{item.lang}}</span></p>
+                                    <div class="actions">
+                                        <a href="javascript:void(0)"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <h5>Название проекта</h5>
+                        <div class="items-users">
+                            <div class="participant-item" ng-repeat="item in $ctrl.data">
+                                <div class="row">
+                                    <div class="col-sm-3 avatar">
+                                        <img src="/images/{{item.avatar}}"/>
+                                    </div>
+                                    <div class="col-sm-9 info">
+                                        <p class="name">{{item.name}}</p>
+                                        <p class="lang"><span>{{item.lang}}</span></p>
+                                        <div class="actions">
+                                            <a href="javascript:void(0)"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                            <a href="javascript:void(0)"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                            <a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
