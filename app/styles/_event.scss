@@ -1,0 +1,52 @@
+#wrapper{
+    background-color: hsl(222, 22%, 81%);
+}
+
+.event-participants{
+    background: #435479;
+
+    .participant-item{
+        border-bottom: 1px solid #c4cbdb;
+        color: #ffffff;
+
+        .avatar{
+            text-align: center;
+            img{
+                width: 50px;
+                border-radius: 50px;
+                text-align: center;
+                margin: 6px;
+            }
+            padding-right: 0;
+        }
+
+        .info{
+            padding-left: 0;
+        }
+
+        .name{
+            font-size: 21px;
+            text-align: left;
+            margin-bottom: 0;
+            margin-top: 5px;
+        }
+
+        .lang{
+            font-size: 12px;
+        }
+
+        .actions{
+            float: right;
+            font-size: 23px;
+            margin-top: -46px;
+            margin-right: 20px;
+            color: #fbfbfb;
+
+            a{
+                color: #fbfbfb;
+                display: inline-block;
+                margin: 0 3px;
+            }
+        }
+    }
+}

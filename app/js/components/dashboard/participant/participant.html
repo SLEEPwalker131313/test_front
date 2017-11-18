@@ -1,3 +1,25 @@
-<div>
-    participants
+<div class="row">
+    <div class="col-sm-8">
+
+    </div>
+    <div class="col-sm-4">
+        <div class="event-participants">
+            <div class="participant-item" ng-repeat="item in $ctrl.data">
+                <div class="row">
+                    <div class="col-sm-3 avatar">
+                        <img src="/images/{{item.avatar}}"/>
+                    </div>
+                    <div class="col-sm-9 info">
+                        <p class="name">{{item.name}}</p>
+                        <p class="lang"><span>{{item.lang}}</span></p>
+                        <div class="actions">
+                            <a href="javascript:void(0)"><i class="fa fa-info" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0)"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0)"><i class="fa fa-download" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
