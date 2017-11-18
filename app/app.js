@@ -9,7 +9,8 @@ let app = angular
       '720kb.datepicker',
       'templates',
       'ui.bootstrap',
-      'core.game'
+      'core.auth',
+      'core.dashboard'
     ]);
 
 app.config(function ($translateProvider, TRANSLATES, $windowProvider, ResourcesServiceProvider) {

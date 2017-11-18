@@ -4,8 +4,6 @@
     angular.module('core')
         .provider('ResourcesService', function ResourcesServiceProvider() {
 
-            const GAME = 'game';
-
             let siteId = 'game';
 
 

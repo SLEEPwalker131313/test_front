@@ -14,6 +14,7 @@ var merge = require('gulp-merge-json');
 var insert = require('gulp-insert');
 var ngConstant = require('gulp-ng-constant');
 var cleanCSS = require('gulp-clean-css');
+var flatten = require('gulp-flatten');
 
 // == PATH STRINGS ========
 
@@ -92,6 +93,12 @@ pipes.scriptedPartials = function () {
       .pipe(plugins.ngHtml2js({
         moduleName: "app"
       }));
+};
+
+pipes.fontsDevVendor = function(){
+  return gulp.src('./bower_components/**/*.{eot,svg,ttf,woff,woff2}')
+      .pipe(flatten())
+      .pipe(gulp.dest('./app/fonts'))
 };
 
 pipes.builtAppScriptsDev = function () {
@@ -264,6 +271,7 @@ pipes.builtIndexProd = function () {
 pipes.builtAppDev = function () {
   return es.merge(
       pipes.builtIndexDev(),
+      pipes.fontsDevVendor(),
       pipes.processedImagesDev(),
       pipes.processedFontsDev()
   );
@@ -272,6 +280,7 @@ pipes.builtAppDev = function () {
 pipes.builtAppProd = function () {
   return es.merge(
       pipes.builtIndexProd(),
+      pipes.fontsDevVendor(),
       pipes.processedImagesProd(),
       pipes.processedFontsProd()
   );
@@ -324,6 +333,7 @@ gulp.task('validate-server-scripts', pipes.validateServerScripts);
 
 // moves app scripts into the dev environment
 gulp.task('build-app-scripts-dev', pipes.builtAppScriptsDev);
+gulp.task('get-font-vendor', pipes.fontsDevVendor);
 
 // concatenates, uglifies, and moves app scripts and partials into the prod environment
 gulp.task('build-app-scripts-prod', ['template-cache-prod', 'translate-prod'], pipes.builtAppScriptsProd);
@@ -353,7 +363,7 @@ gulp.task('build-app-dev', pipes.builtAppDev);
 gulp.task('build-app-prod', pipes.builtAppProd);
 
 // cleans and builds a complete dev environment
-gulp.task('clean-build-app-dev', ['clean-dev', 'clean-tmp'], pipes.builtAppDev);
+gulp.task('clean-build-app-dev', ['clean-dev', 'clean-tmp', 'get-font-vendor'], pipes.builtAppDev);
 
 // cleans and builds a complete prod environment
 gulp.task('clean-build-app-prod', ['clean-prod', 'clean-tmp', 'template-cache-prod', 'translate-prod'], pipes.builtAppProd);
@@ -366,7 +376,7 @@ gulp.task("translate-dev", pipes.translatesDev);
 gulp.task("translate-prod", pipes.translatesProd);
 
 // clean, build, and watch live changes to the dev environment
-gulp.task('watch-dev', ['clean-build-app-dev', 'validate-server-scripts'], function () {
+gulp.task('watch-dev', ['clean-build-app-dev','validate-server-scripts'], function () {
 
   // start nodemon to auto-reload the dev server
   plugins.nodemon({script: 'server.js', ext: 'js', watch: ['devServer/'], env: {NODE_ENV: 'development'}})

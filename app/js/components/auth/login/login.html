@@ -1,0 +1,24 @@
+<div class="auth-wrap">
+    <div class="auth">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Авторизация</h4>
+            </div>
+        </div>
+        <div class="row">
+            <form name="$ctrl.formLogin" novalidate>
+                <div class="col-sm-12">
+                    <input class="form__input" type="text" placeholder="Логин" ng-model="$ctrl.form.login" required>
+                    <p ng-show="$ctrl.formLogin.login.$invalid && !$ctrl.formLogin.login.$pristine" class="help-block">You name is required.</p>
+                </div>
+                <div class="col-sm-12">
+                    <input class="form__input" type="password" placeholder="Пароль" ng-model="$ctrl.form.password" required>
+                    <p ng-show="$ctrl.formLogin.password.$invalid && !$ctrl.formLogin.password.$pristine" class="help-block">You name is required.</p>
+                </div>
+                <div class="col-sm-12">
+                    <button class="button _blue" ng-click="$ctrl.login()" ng-disabled="$ctrl.formLogin.$invalid">Войти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
