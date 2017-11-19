@@ -7,6 +7,7 @@ let app = angular
       'ui-notification',
       'pascalprecht.translate',
       '720kb.datepicker',
+      'ngDialog',
       'templates',
       'ui.bootstrap',
       'core.auth',

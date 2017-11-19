@@ -6,7 +6,7 @@
         templateUrl: function(ResourcesService) {
           return ResourcesService.getTemplate('dashboard/participant');
         },
-        controller(){
+        controller(ngDialog, $element, NavigationService){
           let $ctrl = this;
 
           Object.assign($ctrl, {
@@ -41,6 +41,29 @@
                   avatar:'avatar.jpg'
                 }
               ]
+            },
+
+            openMentors(){
+              ngDialog.open({
+                template:'js/components/common/dialog/mentors.html'
+              })
+            },
+            openMap(){
+              ngDialog.open({
+                template:'js/components/common/dialog/map.html',
+                onOpenCallback(){
+                  function createMap(){
+                    var uluru = {lat: -25.363, lng: 131.044};
+                    console.log($element);
+                    console.log(google);
+                    var map = NavigationService.openMap();
+                  }
+                  createMap();
+                },
+                controller(){
+                  let $ctrlDialog = this;
+                }
+              })
             }
           })
         }

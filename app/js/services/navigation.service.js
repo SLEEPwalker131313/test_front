@@ -30,7 +30,20 @@
 
         return {
           currentStateOfNavigation,
-          parseState
+          parseState,
+          openMap(){
+            var uluru = {lat: 59.963668, lng: 30.31998};
+            var map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 14,
+              center: uluru
+            });
+
+            var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+            return map;
+          }
         }
       })
 })(angular);

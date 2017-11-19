@@ -6,9 +6,11 @@
    "angular": true,
    "_": true,
    "window": true,
+   "document": true,
    "$": true,
    "FormData":true,
-   "moment":true
+   "moment":true,
+   "google":true
   },
   "env": {
     "node": true,
